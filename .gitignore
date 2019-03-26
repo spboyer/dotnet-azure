@@ -1,0 +1,4 @@
+.build/
+obj/
+bin/
+nupkg/
