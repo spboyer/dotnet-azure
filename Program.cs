@@ -15,7 +15,7 @@ namespace dotnet_azure
        Subcommand(typeof(Deploy), typeof(GetAzure))]
   class App
   {
-    public static void Main(string[] args) => CommandLineApplication.Execute<Azure>(args);
+    public static void Main(string[] args) => CommandLineApplication.Execute<App>(args);
 
 
     private int OnExecute(CommandLineApplication app, IConsole console)
@@ -36,6 +36,7 @@ namespace dotnet_azure
       private void OnExecute(IConsole console)
       {
         // do action here
+        CreateWebApp().GetAwaiter().GetResult();
       }
 
       public IAzure GetSdkClient()

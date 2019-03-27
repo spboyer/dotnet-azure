@@ -11,7 +11,7 @@ namespace dotnet_azure
     }
     public static void CreateServicePrincipalFile()
     {
-      var result = ShellHelper.Bash("az ad sp create-for-rbac");
+      var result = ShellHelper.Bash("az ad sp create-for-rbac --sdk-auth");
 
       File.WriteAllText(fileName, result);
     }
