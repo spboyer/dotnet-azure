@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="kurukuru" Version="1.1.0" />
+    <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.3.3" />
   </ItemGroup>
 
 </Project>
