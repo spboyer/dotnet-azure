@@ -5,11 +5,14 @@ using McMaster.Extensions.CommandLineUtils;
 namespace dotnet_azure
 {
 
-  [Command(Name = "dotnet-azure-deploy", Description = "A global command set to deploy .NET Core apps to Azure."),
+  [Command(Name = "dotnet azure", Description = "A global command set to deploy .NET Core apps to Azure."),
        Subcommand(typeof(Deploy), typeof(GetAzure))]
   class Azure
   {
     public static void Main(string[] args) => CommandLineApplication.Execute<Azure>(args);
+
+    [Argument(0)]
+    public string AppPath { get; set; } = "./";
 
     private int OnExecute(CommandLineApplication app, IConsole console)
     {

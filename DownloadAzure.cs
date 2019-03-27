@@ -72,7 +72,7 @@ namespace dotnet_azure
 
       if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
       {
-
+        // todo
       }
 
       if (installed)
