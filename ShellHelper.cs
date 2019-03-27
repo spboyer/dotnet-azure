@@ -1,25 +1,28 @@
 using System.Diagnostics;
 
-public static class ShellHelper
+namespace dotnet_azure
 {
-  public static string Bash(string cmd)
+  public static class ShellHelper
   {
-    var escapedArgs = cmd.Replace("\"", "\\\"");
-
-    var process = new Process()
+    public static string Bash(string cmd)
     {
-      StartInfo = new ProcessStartInfo
+      var escapedArgs = cmd.Replace("\"", "\\\"");
+
+      var process = new Process()
       {
-        FileName = "/bin/bash",
-        Arguments = $"-c \"{escapedArgs}\"",
-        RedirectStandardOutput = true,
-        UseShellExecute = false,
-        CreateNoWindow = true,
-      }
-    };
-    process.Start();
-    string result = process.StandardOutput.ReadToEnd();
-    process.WaitForExit();
-    return result;
+        StartInfo = new ProcessStartInfo
+        {
+          FileName = "/bin/bash",
+          Arguments = $"-c \"{escapedArgs}\"",
+          RedirectStandardOutput = true,
+          UseShellExecute = false,
+          CreateNoWindow = true,
+        }
+      };
+      process.Start();
+      string result = process.StandardOutput.ReadToEnd();
+      process.WaitForExit();
+      return result;
+    }
   }
 }

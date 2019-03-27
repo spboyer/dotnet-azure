@@ -4,7 +4,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-public static class WebUtils
+namespace dotnet_azure
+{
+  public static class WebUtils
   {
     //private static Lazy<IWebProxy> proxy = new Lazy<IWebProxy>(() => string.IsNullOrEmpty(Settings.Default.WebProxyAddress) ? null : new WebProxy { Address = new Uri(Settings.Default.WebProxyAddress), UseDefaultCredentials = true });
 
@@ -45,3 +47,4 @@ public static class WebUtils
       }
     }
   }
+}

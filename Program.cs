@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using McMaster.Extensions.CommandLineUtils;
 
-namespace azure
+namespace dotnet_azure
 {
 
-  [Command(Name = "azure-deploy", Description = "A global command set to deploy .NET Core apps to Azure."),
-       Subcommand(typeof(Deploy))]
+  [Command(Name = "dotnet-azure-deploy", Description = "A global command set to deploy .NET Core apps to Azure."),
+       Subcommand(typeof(Deploy), typeof(GetAzure))]
   class Azure
   {
     public static void Main(string[] args) => CommandLineApplication.Execute<Azure>(args);
@@ -27,6 +27,16 @@ namespace azure
         // do action here
       }
 
+    }
+
+    [Command("get-cli", Description = "Download and install the Azure CLI")]
+    private class GetAzure
+    {
+      private IReadOnlyList<string> RemainingArguments { get; }
+      private void OnExecute(IConsole console)
+      {
+        // do action here
+      }
     }
   }
 }
