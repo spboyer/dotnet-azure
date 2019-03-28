@@ -6,6 +6,7 @@
     <AssemblyName>dotnet-azure</AssemblyName>
 
     <PackAsTool>true</PackAsTool>
+     <IsPackable>true</IsPackable>
     <ToolCommandName>dotnet-azure</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
   </PropertyGroup>

@@ -27,5 +27,16 @@ namespace dotnet_azure
       var result = ShellHelper.Bash("az account list -o table");
       return result.Contains("az login");
     }
+
+    public static void UploadFiles(string zipFile, string resourceGroup, string appName)
+    {
+      var result = ShellHelper.Bash($"az webapp deployment source config-zip -g {resourceGroup} -n {appName} --src {zipFile}");
+      Console.WriteLine(result);
+    }
+
+    public static void BrowseSite(string resourceGroup, string appName)
+    {
+      ShellHelper.Bash($"az webapp browse -n {appName} -g {resourceGroup}");
+    }
   }
 }
