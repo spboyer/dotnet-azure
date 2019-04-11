@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using Kurukuru;
+using dotnet_azure.Utilities;
 
-namespace dotnet_azure
+namespace dotnet_azure.Actions
 {
   public class DownloadAzure
   {

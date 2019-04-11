@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace dotnet_azure
+namespace dotnet_azure.Utilities
 {
   public static class ShellHelper
   {

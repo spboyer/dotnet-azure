@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace dotnet_azure
+namespace dotnet_azure.Utilities
 {
   public static class WebUtils
   {

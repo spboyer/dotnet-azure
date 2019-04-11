@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using dotnet_azure.Utilities;
 
 namespace dotnet_azure
 {

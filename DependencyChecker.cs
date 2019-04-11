@@ -1,3 +1,5 @@
+using dotnet_azure.Utilities;
+
 namespace dotnet_azure
 {
   public static class DependencyChecker
