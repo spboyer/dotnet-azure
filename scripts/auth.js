@@ -15,6 +15,7 @@ module.exports = function(callback) {
       credentials.environment.resourceManagerEndpointUrl;
 
     result.token = credentials.tokenCache._entries[0].accessToken;
+    result.expiresOn = credentials.tokenCache._entries[0].expiresOn;
 
     //result.raw = credentials;
 
