@@ -2,3 +2,5 @@
 obj/
 bin/
 nupkg/
+package-lock.json
+node_modules
