@@ -89,12 +89,13 @@ namespace dotnet_azure
         IWebApp webApp = null;
 
 
-        await Spinner.StartAsync($"Starting deployment for {appProfile.profile.PublishName}", async spinner =>
+        await Spinner.StartAsync("", async spinner =>
         {
+          spinner.Text = $"Starting deployment for {appProfile.profile.PublishName}";
 
           if (appProfile.isNew)
           {
-            spinner.Info($"Creating web app {appProfile.profile.PublishName}");
+            spinner.Text = $"Creating web app {appProfile.profile.PublishName}";
 
             // create the webapp
             try
@@ -120,7 +121,7 @@ namespace dotnet_azure
           }
           else
           {
-            spinner.Info($"{appProfile.profile.PublishName} already published, updating files.");
+            spinner.Text = $"{appProfile.profile.PublishName} already published, updating files.";
 
             webApp = GetSdkClient()
             .WebApps.GetByResourceGroup(appProfile.profile.ResourceGroup, appProfile.profile.PublishName);
@@ -130,7 +131,7 @@ namespace dotnet_azure
           var webUri = new Uri(string.Format("https://{0}.scm.azurewebsites.net/api/zipdeploy", appProfile.profile.PublishName));
 
 
-          spinner.Info("Retrieving publishing profile.");
+          spinner.Text = "Retrieving publishing profile.";
           // get the publishing profile and create the auth token
           var publishProfile = webApp.GetPublishingProfile();
           var ftpUser = publishProfile.FtpUsername.Split('\\')[1];
@@ -140,21 +141,21 @@ namespace dotnet_azure
           try
           {
 
-            spinner.Info("Running dotnet publish.");
+            spinner.Text = "Running dotnet publish.";
             // run dotnet publish on application
             ShellHelper.Cmd($"dotnet publish {AppPath} -c Release -o {AppPath}/publish");
-            spinner.Succeed();
 
-            spinner.Info("Preparing files for upload.");
+
+            spinner.Text = "Preparing files for upload.";
             //zip publish folder
             var zipFile = ZipContents(appProfile.profile);
-            spinner.Succeed();
 
-            spinner.Info("Uploading application.");
+
+            spinner.Text = "Uploading application.";
             var published = await UploadFiles(webUri, zipFile, authToken);
             if (published)
             {
-              spinner.Succeed($"App {appProfile.profile.PublishName} published.");
+              spinner.Text = $"App {appProfile.profile.PublishName} published.";
 
               appProfile.profile.LastPublish = DateTime.Now;
               SaveAppProfile(appProfile.profile);
@@ -170,11 +171,8 @@ namespace dotnet_azure
             spinner.Fail($"Error creating web app {appProfile.profile.PublishName} - " + ex.Message);
             throw ex; // throwing so caller can handle
           }
-
-
+            spinner.Succeed();
         });
-
-
       }
 
       private async Task<bool> UploadFiles(Uri siteUrl, string zipFile, string authToken)
@@ -213,8 +211,8 @@ namespace dotnet_azure
           return (profile: JsonConvert.DeserializeObject<AppProfile>(File.ReadAllText(profileData)), isNew: false);
         }
 
-        var publishName = SdkContext.RandomResourceName("webapp", 25);
-        var resourceGroup = SdkContext.RandomResourceName("rg", 10);
+        var publishName = SdkContext.RandomResourceName("webapp", 30);
+        var resourceGroup = SdkContext.RandomResourceName("rg", 15);
 
         var result = new AppProfile();
         result.AppPath = this.AppPath;
@@ -222,7 +220,7 @@ namespace dotnet_azure
         result.ResourceGroup = resourceGroup;
         result.isLinux = false;
         result.PricingTier = PricingTier.FreeF1;
-        result.Region = Region.USSouthCentral;
+        result.Region =  Region.USEast.Name;
 
         return (profile: result, isNew: true);
       }
