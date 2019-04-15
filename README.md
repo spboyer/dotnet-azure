@@ -2,6 +2,8 @@
 
 .NET Core global tool for creating and updating web applications in Azure.
 
+`dotnet azure login`
+
 `dotnet azure deploy`
 
 `dotnet azure deploy <PROJECT FOLDER PATH>`
