@@ -66,7 +66,7 @@ namespace dotnet_azure.Actions
 
         Spinner.Start("Installing azure cli using homebrew", spinner =>
         {
-          ShellHelper.Bash("brew update && brew install azure-cli");
+          ShellHelper.Cmd("brew update && brew install azure-cli");
           installed = true;
         });
       }

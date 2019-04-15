@@ -6,18 +6,18 @@ namespace dotnet_azure
   {
     public static bool Ruby()
     {
-      var result = ShellHelper.Bash("command -v ruby");
+      var result = ShellHelper.Cmd("command -v ruby");
       return result != string.Empty;
     }
     public static bool Homebrew()
     {
-      var result = ShellHelper.Bash("command -v brew");
+      var result = ShellHelper.Cmd("command -v brew");
       return result != string.Empty;
     }
 
     public static bool AzureCLI()
     {
-      var result = ShellHelper.Bash("command -v az");
+      var result = ShellHelper.Cmd("command -v az");
       return result != string.Empty;
     }
   }
