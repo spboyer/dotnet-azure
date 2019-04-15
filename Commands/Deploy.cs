@@ -104,9 +104,8 @@ namespace dotnet_azure
                 .WebApps.Define(appProfile.profile.PublishName)
                 .WithRegion(appProfile.profile.Region)
                 .WithNewResourceGroup(appProfile.profile.ResourceGroup)
-                .WithNewFreeAppServicePlan()
+                .WithNewSharedAppServicePlan()
                 .CreateAsync();
-
             }
             catch (LogingException loginEx)
             {
@@ -171,7 +170,7 @@ namespace dotnet_azure
             spinner.Fail($"Error creating web app {appProfile.profile.PublishName} - " + ex.Message);
             throw ex; // throwing so caller can handle
           }
-            spinner.Succeed();
+            spinner.Succeed($"Browse to https://{appProfile.profile.PublishName}.azurewebsites.net");
         });
       }
 
@@ -219,7 +218,7 @@ namespace dotnet_azure
         result.PublishName = publishName;
         result.ResourceGroup = resourceGroup;
         result.isLinux = false;
-        result.PricingTier = PricingTier.FreeF1;
+        result.PricingTier = PricingTier.SharedD1;
         result.Region =  Region.USEast.Name;
 
         return (profile: result, isNew: true);
