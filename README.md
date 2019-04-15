@@ -16,3 +16,8 @@
 ```console
 dotnet tool install dotnet-azure --global
 ```
+
+### Notes
+
+* Creates random application and resource group name
+* Creates a D1 Application Service Plan
