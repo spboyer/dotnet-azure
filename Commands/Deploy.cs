@@ -32,7 +32,8 @@ namespace dotnet_azure
       {
         get
         {
-          return string.Join("_", Path.GetDirectoryName(AppPath).Split(Path.GetInvalidFileNameChars()));
+          var info = new DirectoryInfo(AppPath);
+          return string.Join("_", info.Name.Split(Path.GetInvalidFileNameChars()));
         }
       }
 
@@ -48,9 +49,9 @@ namespace dotnet_azure
         // check to see if token file exits
         if (!File.Exists(Utilities.Settings.TokenFile))
         {
-          Console.WriteLine("Please Login to Azure. If you do not have an Azure Account, create a FREE account at https://aka.ms/dotnet-azure.");
-          return null;
+          throw new LogingException("Please Login to Azure. If you do not have an Azure Account, create a FREE account at https://aka.ms/dotnet-azure.");
         }
+
         var auth = JsonConvert.DeserializeObject<AuthResult>(File.ReadAllText(Utilities.Settings.TokenFile));
 
         // is token still valid? If not login
@@ -58,8 +59,7 @@ namespace dotnet_azure
 
         if (DateTime.Now >= expires)
         {
-          Console.WriteLine("Login token has expired, please login to Azure.");
-          return null;
+          throw new LogingException("Login token has expired, please login to Azure.");
         }
 
         // login and return IAzure
@@ -101,9 +101,15 @@ namespace dotnet_azure
               .CreateAsync();
 
           }
+          catch (LogingException loginEx)
+          {
+            Console.WriteLine(loginEx.Message);
+            return;
+          }
           catch (Exception ex)
           {
             Console.WriteLine($"Error creating web app {appProfile.profile.PublishName} - " + ex.Message);
+            return;
           }
         }
         else
