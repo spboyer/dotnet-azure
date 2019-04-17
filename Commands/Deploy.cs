@@ -32,7 +32,7 @@ namespace dotnet_azure
 
 
       [Option(Description = "Region or location of app deployment.", LongName = "location", ShortName = "l")]
-      public string Location { get; set; }
+      public string Location { get; set; } = "eastus";
 
       [Option(Description = "Resource group name to create and use for deployment.", LongName = "group", ShortName = "g")]
       public string ResourceGroup { get; set; } = SdkContext.RandomResourceName("rg", 15);
