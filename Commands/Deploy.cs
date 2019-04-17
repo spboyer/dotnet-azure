@@ -24,7 +24,7 @@ namespace dotnet_azure
     [Command("deploy", Description = "Deploy application to Azure App Service")]
     private class Deploy
     {
-
+      
       [Argument(0)]
       public string AppPath { get; set; } = "./";
 
@@ -142,13 +142,23 @@ namespace dotnet_azure
 
             spinner.Text = "Running dotnet publish.";
             // run dotnet publish on application
-            ShellHelper.Cmd($"dotnet publish {AppPath} -c Release -o {AppPath}/publish");
-
+            try
+            {
+              var results = ShellHelper.Cmd($"dotnet publish {AppPath} -c Release -o {AppPath}/publish");
+              if (results.Contains(": error"))
+              {
+                throw new DotNetPublishException("Error building application", new Exception(results));
+              }
+            }
+            catch(DotNetPublishException dnex)
+            {
+              spinner.Fail(dnex.Message);
+              return;
+            }
 
             spinner.Text = "Preparing files for upload.";
             //zip publish folder
             var zipFile = ZipContents(appProfile.profile);
-
 
             spinner.Text = "Uploading application.";
             var published = await UploadFiles(webUri, zipFile, authToken);
