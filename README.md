@@ -4,9 +4,42 @@
 
 `dotnet azure login`
 
+
+### help
+
+```console
+Usage: dotnet-azure [options] [command]
+
+Options:
+  -?|-h|--help  Show help information
+
+Commands:
+  deploy        Deploy application to Azure App Service. Options are used for [NEW] application deployments only.
+  get-cli       Download and install the Azure CLI
+  login         Login into Azure
+```
+
 `dotnet azure deploy`
 
 `dotnet azure deploy <PROJECT FOLDER PATH>`
+
+### deploy command options
+
+```console
+Deploy application to Azure App Service. Options are used for [NEW] application deployments only.
+
+Usage: dotnet-azure deploy [arguments] [options]
+
+Arguments:
+  AppPath
+
+Options:
+  -?|-h|--help                       Show help information
+  -n|--name <APP_NAME>               Name of application, must be unique.
+  -l|--location <LOCATION>           Region or location of app deployment. (eastus, westus, etc.)
+  -g|--group <RESOURCE_GROUP>        Resource group name to create and use for deployment.
+  -p|--plan <APP_SERVICE_PLAN_TYPE>  Type of App Service Plan to create for application. Options (BasicB1, SharedD1, FreeF1, PremiumP1 - more info https://aka.ms/azure-appserviceplans )
+```
 
 ## Requirements
 
