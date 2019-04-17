@@ -23,6 +23,7 @@ namespace dotnet_azure
   partial class App
   {
     [Command("deploy", Description = "Deploy application to Azure App Service. Options are used for [NEW] application deployments only.")]
+    [HelpOption()]
     private class Deploy
     {
 
@@ -58,6 +59,10 @@ namespace dotnet_azure
       private IReadOnlyList<string> RemainingArguments { get; }
       private void OnExecute(IConsole console)
       {
+        if (RemainingArguments.Count > 0 && RemainingArguments[0].Contains("-h"))
+        {
+
+        }
         // do action here
         CreateWebApp().GetAwaiter().GetResult();
       }
