@@ -22,8 +22,7 @@ namespace dotnet_azure
 {
   partial class App
   {
-    [Command("deploy", Description = "Deploy application to Azure App Service. Options are used for [NEW] application deployments only.",
-    AllowArgumentSeparator = true)]
+    [Command("deploy", Description = "Deploy application to Azure App Service. Options are used for [NEW] application deployments only.")]
     private class Deploy
     {
 
@@ -31,10 +30,14 @@ namespace dotnet_azure
       public string AppName { get; set; } = SdkContext.RandomResourceName("webapp", 20);
 
 
-      [Option(Description = "Region or location of app deployment.", LongName = "location", ShortName = "l")]
+      [Option(CommandOptionType.SingleValue,
+              Description = "Region or location of app deployment.",
+              LongName = "location", ShortName = "l")]
       public string Location { get; set; } = "eastus";
 
-      [Option(Description = "Resource group name to create and use for deployment.", LongName = "group", ShortName = "g")]
+      [Option(CommandOptionType.SingleValue,
+              Description = "Resource group name to create and use for deployment.",
+              LongName = "group", ShortName = "g")]
       public string ResourceGroup { get; set; } = SdkContext.RandomResourceName("rg", 15);
 
       [Option(Description = "Type of App Service Plan to create for application. Options (BasicB1, SharedD1, FreeF1, PremiumP1 - more info https://aka.ms/azure-appserviceplans )", LongName = "plan", ShortName = "p")]
@@ -254,7 +257,7 @@ namespace dotnet_azure
         result.ResourceGroup = ResourceGroup;
         result.isLinux = false;
         result.PricingTier = Settings.GetPricingTier(AppServicePlanType);
-        result.Region = Region.Create(Location).Name;
+        result.Region = Settings.GetRegionByName(Location.Trim()).Name;
 
         return (profile: result, isNew: true);
       }

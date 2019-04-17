@@ -1,15 +1,30 @@
-﻿using McMaster.Extensions.CommandLineUtils;
+﻿using System;
+using McMaster.Extensions.CommandLineUtils;
 
 namespace dotnet_azure
 {
 
-  [Command(Name = "dotnet azure", Description = "A global command set to deploy .NET Core apps to Azure."),
-       Subcommand(typeof(Deploy), typeof(GetAzure), typeof(Login))]
+
+  [Subcommand(typeof(Deploy))]
+  [Subcommand(typeof(GetAzure))]
+  [Subcommand(typeof(Login))]
   partial class App
   {
-    public static void Main(string[] args) => CommandLineApplication.Execute<App>(args);
+    public static int Main(string[] args)
+    {
+      var app = new CommandLineApplication<App>();
+      app.Conventions.UseDefaultConventions();
 
-
+      try
+      {
+        return app.Execute(args);
+      }
+      catch (CommandParsingException ex)
+      {
+        Console.WriteLine($"Unexpected Error {ex.Message}");
+        return -1;
+      }
+    }
     private int OnExecute(CommandLineApplication app, IConsole console)
     {
       console.WriteLine("You must specify at a subcommand.");
