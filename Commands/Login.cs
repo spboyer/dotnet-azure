@@ -30,7 +30,6 @@ namespace dotnet_azure
         if (taskResult.IsCompletedSuccessfully)
         {
           File.WriteAllText(Utilities.Settings.TokenFile, taskResult.Result);
-
         }
       }
     }

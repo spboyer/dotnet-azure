@@ -16,15 +16,30 @@ using Newtonsoft.Json;
 using Kurukuru;
 using System.Net.Http;
 using System.Text;
-
+using Microsoft.Azure.Management.AppService.Fluent.Models;
+using System.ComponentModel.DataAnnotations;
 namespace dotnet_azure
 {
   partial class App
   {
-    [Command("deploy", Description = "Deploy application to Azure App Service")]
+    [Command("deploy", Description = "Deploy application to Azure App Service. Options are used for [NEW] application deployments only.",
+    AllowArgumentSeparator = true)]
     private class Deploy
     {
-      
+
+      [Option(Description = "Name of application, must be unique.", LongName = "name", ShortName = "n")]
+      public string AppName { get; set; } = SdkContext.RandomResourceName("webapp", 20);
+
+
+      [Option(Description = "Region or location of app deployment.", LongName = "location", ShortName = "l")]
+      public string Location { get; set; }
+
+      [Option(Description = "Resource group name to create and use for deployment.", LongName = "group", ShortName = "g")]
+      public string ResourceGroup { get; set; } = SdkContext.RandomResourceName("rg", 15);
+
+      [Option(Description = "Type of App Service Plan to create for application. Options (BasicB1, SharedD1, FreeF1, PremiumP1 - more info https://aka.ms/azure-appserviceplans )", LongName = "plan", ShortName = "p")]
+      public string AppServicePlanType { get; set; } = "SharedD1";
+
       [Argument(0)]
       public string AppPath { get; set; } = "./";
 
@@ -100,12 +115,25 @@ namespace dotnet_azure
             // create the webapp
             try
             {
+
+              if (appProfile.profile.PricingTier == PricingTier.SharedD1)
+              {
               webApp = await GetSdkClient()
                 .WebApps.Define(appProfile.profile.PublishName)
                 .WithRegion(appProfile.profile.Region)
                 .WithNewResourceGroup(appProfile.profile.ResourceGroup)
                 .WithNewSharedAppServicePlan()
                 .CreateAsync();
+              }
+              else
+              {
+              webApp = await GetSdkClient()
+                .WebApps.Define(appProfile.profile.PublishName)
+                .WithRegion(appProfile.profile.Region)
+                .WithNewResourceGroup(appProfile.profile.ResourceGroup)
+                .WithNewWindowsPlan(appProfile.profile.PricingTier)
+                .CreateAsync();
+              }
             }
             catch (LogingException loginEx)
             {
@@ -220,16 +248,13 @@ namespace dotnet_azure
           return (profile: JsonConvert.DeserializeObject<AppProfile>(File.ReadAllText(profileData)), isNew: false);
         }
 
-        var publishName = SdkContext.RandomResourceName("webapp", 30);
-        var resourceGroup = SdkContext.RandomResourceName("rg", 15);
-
         var result = new AppProfile();
         result.AppPath = this.AppPath;
-        result.PublishName = publishName;
-        result.ResourceGroup = resourceGroup;
+        result.PublishName = AppName;
+        result.ResourceGroup = ResourceGroup;
         result.isLinux = false;
-        result.PricingTier = PricingTier.SharedD1;
-        result.Region =  Region.USEast.Name;
+        result.PricingTier = Settings.GetPricingTier(AppServicePlanType);
+        result.Region = Region.Create(Location).Name;
 
         return (profile: result, isNew: true);
       }
