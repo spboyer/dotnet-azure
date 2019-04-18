@@ -10,14 +10,13 @@
     <ToolCommandName>dotnet-azure</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <Version>1.0.1</Version>
+    <PackageTags>azure, global tool, .net core, appservice</PackageTags>
   </PropertyGroup>
 
-<ItemGroup>
- <Content Include="scripts/auth.js">
-  <Pack>true</Pack>
-  <PackagePath>\scripts</PackagePath>
-</Content>
-</ItemGroup>
+  <ItemGroup>
+    <None Include="node_modules\**\*" Link="\%(RecursiveDir)\%(Filename)%(Extension)"  CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
+    <None Include="scripts\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="kurukuru" Version="1.1.0" />
