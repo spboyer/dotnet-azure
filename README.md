@@ -31,10 +31,12 @@ Commands:
 
 ### login
 
+Run `login` command first to authenticate against your Azure account.
+
 `dotnet azure login`
 
 ```console
-
+To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code XXXXXXXXX to authenticate.
 ```
 
 ### deploy
