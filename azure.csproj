@@ -12,6 +12,13 @@
     <Version>1.0.1</Version>
   </PropertyGroup>
 
+<ItemGroup>
+ <Content Include="scripts/auth.js">
+  <Pack>true</Pack>
+  <PackagePath>\scripts</PackagePath>
+</Content>
+</ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="kurukuru" Version="1.1.0" />
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="2.3.3" />
