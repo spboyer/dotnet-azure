@@ -25,7 +25,6 @@ Options:
 
 Commands:
   deploy        Deploy application to Azure App Service. Options are used for [NEW] application deployments only.
-  get-cli       Download and install the Azure CLI
   login         Login into Azure
 ```
 

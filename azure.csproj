@@ -9,12 +9,12 @@
      <IsPackable>true</IsPackable>
     <ToolCommandName>dotnet-azure</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageTags>azure, global tool, .net core, appservice</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="node_modules\**\*" Link="\%(RecursiveDir)\%(Filename)%(Extension)"  CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
+    <None Include="node_modules\*\**" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
     <None Include="scripts\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 

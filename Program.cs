@@ -4,9 +4,8 @@ using McMaster.Extensions.CommandLineUtils;
 namespace dotnet_azure
 {
 
-
+  //[Subcommand(typeof(GetAzure))]
   [Subcommand(typeof(Deploy))]
-  [Subcommand(typeof(GetAzure))]
   [Subcommand(typeof(Login))]
   partial class App
   {

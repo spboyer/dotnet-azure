@@ -10,5 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "ms-rest-azure": "^2.6.0"
+  },
+  "resolutions": {
+    "async": "2.6.2",
+    "punycode": "2.1.1",
+    "extsprintf": "1.4.0"
   }
 }
