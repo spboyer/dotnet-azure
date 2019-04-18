@@ -2,8 +2,18 @@
 
 .NET Core global tool for creating and updating web applications in Azure.
 
-`dotnet azure login`
+## Requirements
 
+* .NET Core 2.1 or higher
+* Azure Account - [Get one for FREE](https://aka.ms/dotnet-azure)
+
+## Installation
+
+```console
+dotnet tool install dotnet-azure --global
+```
+
+## Usage
 
 ### help
 
@@ -19,11 +29,41 @@ Commands:
   login         Login into Azure
 ```
 
-`dotnet azure deploy`
+### login
 
-`dotnet azure deploy <PROJECT FOLDER PATH>`
+`dotnet azure login`
 
-### deploy command options
+```console
+
+```
+
+### deploy
+
+Use defaults, random generated application and resource group name. Current directory is assumed for application for deployment.
+
+```console
+dotnet azure deploy`
+```
+
+Pass project folder.
+
+```console
+dotnet azure deploy \mynewproject`
+```
+
+Pass all options.
+
+```console
+dotnet azure deploy --location westus --name fancywebapp --group fancywebgroup --plan BasicB1
+```
+
+Short hand for `location`, `name`, and `group`
+
+```console
+dotnet azure deploy -l eastus2 -n fancywebapp -g fancygroup`
+```
+
+Full help output for **deploy** command.
 
 ```console
 Deploy application to Azure App Service. Options are used for [NEW] application deployments only.
@@ -40,19 +80,3 @@ Options:
   -g|--group <RESOURCE_GROUP>        Resource group name to create and use for deployment.
   -p|--plan <APP_SERVICE_PLAN_TYPE>  Type of App Service Plan to create for application. Options (BasicB1, SharedD1, FreeF1, PremiumP1 - more info https://aka.ms/azure-appserviceplans )
 ```
-
-## Requirements
-
-* .NET Core 2.1 or higher
-* Azure Account - [Get one for FREE](https://aka.ms/dotnet-azure)
-
-## Installation
-
-```console
-dotnet tool install dotnet-azure --global
-```
-
-### Notes
-
-* Creates random application and resource group name
-* Creates a D1 Application Service Plan

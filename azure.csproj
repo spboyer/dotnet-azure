@@ -9,6 +9,7 @@
      <IsPackable>true</IsPackable>
     <ToolCommandName>dotnet-azure</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
