@@ -36,7 +36,7 @@ namespace dotnet_azure
     private static async Task<string> DoLogin(INodeServices nodeService)
     {
       //Invoke the javascript module with parameters to execute in Node environment.
-      return await nodeService.InvokeAsync<string>(@"/scripts/auth.js");
+      return await nodeService.InvokeAsync<string>(@"scripts/auth.js");
     }
   }
 }

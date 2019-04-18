@@ -1,4 +1,3 @@
-const Azure = require("azure");
 const MsRest = require("ms-rest-azure");
 
 module.exports = function(callback) {
