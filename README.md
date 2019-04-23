@@ -4,7 +4,7 @@
 
 ## Requirements
 
-* .NET Core 2.1 or higher
+* .NET Core 2.2 or higher
 * Azure Account - [Get one for FREE](https://aka.ms/dotnet-azure)
 
 ## Installation
