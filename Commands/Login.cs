@@ -31,6 +31,11 @@ namespace dotnet_azure
 
         if (taskResult.IsCompletedSuccessfully)
         {
+
+          if (!Directory.Exists(Utilities.Settings.DataFolder))
+          {
+            Directory.CreateDirectory(Utilities.Settings.DataFolder);
+          }
           File.WriteAllText(Utilities.Settings.TokenFile, taskResult.Result);
         }
       }

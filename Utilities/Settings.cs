@@ -98,19 +98,24 @@ namespace dotnet_azure.Utilities
 
       return PricingTier.SharedD1;
     }
+
+    public static string DataFolder
+    {
+      get { return Path.Combine(DataFolder, "dotnet-azure"); }
+    }
     public static string TokenFile
     {
-      get { return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dotnet-azure", "token.json"); }
+      get { return Path.Combine(DataFolder, "dotnet-azure", "token.json"); }
     }
 
     internal static string AppProfileFileName(string cleanAppProfileName)
     {
-      return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dotnet-azure", $"{cleanAppProfileName}.json");
+      return Path.Combine(DataFolder, "dotnet-azure", $"{cleanAppProfileName}.json");
     }
 
     internal static string ZipFileName(string cleanAppProfileName)
     {
-      return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dotnet-azure", $"{cleanAppProfileName}.zip");
+      return Path.Combine(DataFolder, "dotnet-azure", $"{cleanAppProfileName}.zip");
     }
   }
 }
