@@ -29,13 +29,14 @@ namespace dotnet_azure.Utilities
 
     private static string WinCmd(string cmd)
     {
-      var escapedArgs = cmd.Replace("\"", "\\\"");
+      var escapedArgs = cmd.Replace("\"", "\\\"").Replace("dotnet ",String.Empty);
 
 
       var process = new Process()
       {
         StartInfo = new ProcessStartInfo
         {
+          FileName = "dotnet",
           Arguments = $"-c \"{escapedArgs}\"",
           RedirectStandardOutput = true,
           UseShellExecute = false,
