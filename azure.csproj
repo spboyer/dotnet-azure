@@ -6,12 +6,18 @@
     <AssemblyName>dotnet-azure</AssemblyName>
 
     <PackAsTool>true</PackAsTool>
-     <IsPackable>true</IsPackable>
+    <IsPackable>true</IsPackable>
     <ToolCommandName>dotnet-azure</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <Version>1.0.3</Version>
     <PackageTags>azure, global tool, .net core, appservice</PackageTags>
   </PropertyGroup>
+
+
+  <Target Name="BeforeBuild" BeforeTargets="Build" Condition=" '$(Configuration)'' == 'Debug' And !Exists('./node_modules')">
+    <Exec Command="npm install --save-prod" />
+  </Target>
+
 
   <ItemGroup>
     <None Include="node_modules\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
