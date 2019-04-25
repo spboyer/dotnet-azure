@@ -14,7 +14,7 @@
   </PropertyGroup>
 
 
-  <Target Name="BeforeBuild" BeforeTargets="Build" Condition=" '$(Configuration)'' == 'Debug' And !Exists('./node_modules')">
+  <Target Name="NpmCommands" BeforeTargets="Build">
     <Exec Command="npm install --save-prod" />
   </Target>
 

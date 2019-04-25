@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# The reason this has to be done - https://github.com/NuGet/Home/issues/8022
+
 # rename npm package reference in adal-node
 # covers package.json and any file referencing package
 find ./node_modules/adal-node -type f -exec sed -i '' 's/xpath.js/xpathjs/g' {} \;
