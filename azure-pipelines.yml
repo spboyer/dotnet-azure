@@ -10,3 +10,12 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+- task: Bash@3
+  inputs:
+    filePath: 'pre-pack.sh'
+  displayName: 'fixup for NuGet Pack Issue'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'pack'
