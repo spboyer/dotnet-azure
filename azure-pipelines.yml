@@ -30,5 +30,5 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    nobuild: true
     packDirectory: '$(Build.ArtifactStagingDirectory)'
+    
