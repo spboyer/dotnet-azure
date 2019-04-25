@@ -31,3 +31,4 @@ steps:
   inputs:
     command: 'pack'
     nobuild: true
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
