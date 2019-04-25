@@ -31,4 +31,6 @@ steps:
   inputs:
     command: 'pack'
     packDirectory: '$(Build.ArtifactStagingDirectory)'
+    nobuild: true
+    verbosityPack: 'Normal'
     
