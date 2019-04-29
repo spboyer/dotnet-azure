@@ -9,7 +9,9 @@
     <IsPackable>true</IsPackable>
     <ToolCommandName>dotnet-azure</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     <Version>1.0.3</Version>
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
     <PackageTags>azure, global tool, .net core, appservice</PackageTags>
   </PropertyGroup>
 
