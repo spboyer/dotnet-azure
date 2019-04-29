@@ -1,5 +1,7 @@
 # dotnet-azure
 
+[![Build Status](https://dev.azure.com/shayneboyer/dotnet-azure/_apis/build/status/spboyer.dotnet-azure?branchName=master)](https://dev.azure.com/shayneboyer/dotnet-azure/_build/latest?definitionId=3&branchName=master)
+
 .NET Core global tool for creating and updating web applications in Azure.
 
 ## Requirements
@@ -43,13 +45,13 @@ To sign in, use a web browser to open the page https://microsoft.com/devicelogin
 Use defaults, random generated application and resource group name. Current directory is assumed for application for deployment.
 
 ```console
-dotnet azure deploy`
+dotnet azure deploy
 ```
 
 Pass project folder.
 
 ```console
-dotnet azure deploy \mynewproject`
+dotnet azure deploy \mynewproject
 ```
 
 Pass all options.
@@ -61,7 +63,7 @@ dotnet azure deploy --location westus --name fancywebapp --group fancywebgroup -
 Short hand for `location`, `name`, and `group`
 
 ```console
-dotnet azure deploy -l eastus2 -n fancywebapp -g fancygroup`
+dotnet azure deploy -l eastus2 -n fancywebapp -g fancygroup
 ```
 
 Full help output for **deploy** command.
