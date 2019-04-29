@@ -17,6 +17,12 @@
     <PackageTags>azure, global tool, .net core, appservice</PackageTags>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Version)' == '' ">
+    <VersionPrefix Condition=" '$(VersionPrefix)' == '' ">1.0.3</VersionPrefix>
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
+    <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
+  </PropertyGroup>
+
 
   <Target Name="NpmCommands" BeforeTargets="Build">
     <Exec Command="npm install --save-prod" />
