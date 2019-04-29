@@ -29,7 +29,7 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'pack'
+    command: 'pack --version-suffix $(Build.BuildNumber)'
     packDirectory: '$(Build.ArtifactStagingDirectory)'
     nobuild: true
     verbosityPack: 'Normal'
