@@ -35,14 +35,15 @@ steps:
 #    arguments: '--no-build true --version-suffix $(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)'
 #  displayName: 'Run .NET Pack'
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'pack'
-    packDirectory: '$(Build.ArtifactStagingDirectory)'
-    nobuild: true
-    verbosityPack: 'Normal'
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'Build.BuildNumber'
+- script : dotnet pack --no-build true --version-suffix '-build-'$(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)
+  displayName: 'Run .NET Pack'
+
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'pack'
+#    packDirectory: '$(Build.ArtifactStagingDirectory)'
+#    nobuild: true
+#    verbosityPack: 'Normal'
     
 - task: PublishBuildArtifacts@1
   inputs:
