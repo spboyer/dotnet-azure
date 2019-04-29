@@ -27,13 +27,21 @@ steps:
       find ./node_modules/xpathjs -type f -exec sed -i -e 's/xpath.js/xpathjs/g' {} \;
   displayName: 'fixup for NuGet Pack Issue'
 
+#- task: DotNetCoreCLI@2
+#  inputs:
+#    command: 'custom'
+#    projects: 'azure.csproj'
+#    custom: 'pack'
+#    arguments: '--no-build true --version-suffix $(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)'
+#  displayName: 'Run .NET Pack'
+
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'custom'
-    projects: 'azure.csproj'
-    custom: 'pack'
-    arguments: '--no-build true --version-suffix $(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)'
-  displayName: 'Run .NET Pack'
+    command: 'pack'
+    packDirectory: '$(Build.ArtifactStagingDirectory)'
+    nobuild: true
+    verbosityPack: 'Normal'
+    versioningScheme: 'byBuildNumber'
     
 - task: PublishBuildArtifacts@1
   inputs:
