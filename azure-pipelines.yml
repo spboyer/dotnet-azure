@@ -8,7 +8,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration) --version-suffix "-build-$(Build.BuildNumber)"
+- script: dotnet build --configuration $(buildConfiguration) -p:Version=1.0.3 --version-suffix "build-$(Build.BuildNumber)"
   displayName: 'dotnet build $(buildConfiguration)'
 
 - task: Bash@3
