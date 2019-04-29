@@ -35,7 +35,7 @@ steps:
 #    arguments: '--no-build true --version-suffix $(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)'
 #  displayName: 'Run .NET Pack'
 
-- script : dotnet pack --no-build true --version-suffix '-build-'$(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)
+- script : dotnet pack azure.csproj --no-build true --version-suffix '-build-'$(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)
   displayName: 'Run .NET Pack'
 
 #- task: DotNetCoreCLI@2
