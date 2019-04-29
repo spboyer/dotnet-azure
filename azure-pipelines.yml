@@ -30,6 +30,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'custom'
+    projects: '**/*.csproj'
     custom: 'pack'
     arguments: '--no-build true --version-suffix $(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)'
   displayName: 'Run .NET Pack'
