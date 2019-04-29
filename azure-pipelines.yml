@@ -29,11 +29,12 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
-    command: 'pack --version-suffix $(Build.BuildNumber)'
-    packDirectory: '$(Build.ArtifactStagingDirectory)'
-    nobuild: true
-    verbosityPack: 'Normal'
+    command: 'custom'
+    custom: 'pack'
+    arguments: '--no-build true --version-suffix $(Build.BuildNumber) -o $(Build.ArtifactStagingDirectory)'
+  displayName: 'Run .NET Pack'
     
 - task: PublishBuildArtifacts@1
   inputs:
     ArtifactName: 'drop'
+  displayName: 'Publish Artifacts'
