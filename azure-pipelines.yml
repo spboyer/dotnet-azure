@@ -34,3 +34,6 @@ steps:
     nobuild: true
     verbosityPack: 'Normal'
     
+- task: PublishBuildArtifacts@1
+  inputs:
+    ArtifactName: 'drop'
