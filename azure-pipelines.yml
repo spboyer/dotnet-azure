@@ -1,5 +1,6 @@
 trigger:
 - master
+- release 
 
 pool:
   vmImage: 'Ubuntu-16.04'
@@ -8,29 +9,46 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration) --version-suffix "build-$(Build.BuildNumber)"
-  displayName: 'dotnet build $(buildConfiguration)'
+# MASTER BRANCH ONLY
+- script: dotnet pack --configuration $(buildConfiguration) --version-suffix "build-$(Build.BuildNumber)"
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+  displayName: 'dotnet pack $(buildConfiguration)'
 
-- task: Bash@3
-  inputs:
-    targetType: inline
-    script: |
-      # The reason this has to be done - https://github.com/NuGet/Home/issues/8022
-      # rename npm package reference in adal-node
-      # covers package.json and any file referencing package
-      find ./node_modules/adal-node -type f -exec sed -i -e 's/xpath.js/xpathjs/g' {} \;
-
-      # rename the xpath.js npm package folder and name
-      mv ./node_modules/xpath.js ./node_modules/xpathjs
-
-      # change the name in the package.json to reflect naming change
-      find ./node_modules/xpathjs -type f -exec sed -i -e 's/xpath.js/xpathjs/g' {} \;
-  displayName: 'fixup for NuGet Pack Issue'
-
-- script : dotnet pack azure.csproj --no-build --configuration $(buildConfiguration) -o "$(Build.ArtifactStagingDirectory)"
-  displayName: 'Run .NET Pack'
-
+# PUSH TO INTERNAL ARTIFACT FEED
 - task: PublishBuildArtifacts@1
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   inputs:
     ArtifactName: 'drop'
   displayName: 'Publish Artifacts'
+
+# RELEASE BRANCH
+- script: dotnet pack --configuration $(buildConfiguration)
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/release'))
+  displayName: 'dotnet pack $(buildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/release'))
+  inputs:
+    ArtifactName: 'prod'
+  displayName: 'Publish Artifacts'
+
+
+#- task: Bash@3
+#  inputs:
+#    targetType: inline
+#    script: |
+#      # The reason this has to be done - https://github.com/NuGet/Home/issues/8022
+#      # rename npm package reference in adal-node
+#      # covers package.json and any file referencing package
+#      find ./node_modules/adal-node -type f -exec sed -i -e 's/xpath.js/xpathjs/g' {} \;
+
+#      # rename the xpath.js npm package folder and name
+#      mv ./node_modules/xpath.js ./node_modules/xpathjs
+
+#      # change the name in the package.json to reflect naming change
+#      find ./node_modules/xpathjs -type f -exec sed -i -e 's/xpath.js/xpathjs/g' {} \;
+#  displayName: 'fixup for NuGet Pack Issue'
+
+#- script : dotnet pack azure.csproj --no-build --configuration $(buildConfiguration) -o "$(Build.ArtifactStagingDirectory)"
+#  displayName: 'Run .NET Pack'
+
