@@ -9,25 +9,24 @@
     <IsPackable>true</IsPackable>
     <ToolCommandName>dotnet-azure</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
-    <!--
-    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-    <Version>1.0.3</Version>
-    <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
-    -->
+    <VersionPrefix>1.0.3</VersionPrefix>
     <PackageTags>azure, global tool, .net core, appservice</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Version)' == '' ">
-    <VersionPrefix Condition=" '$(VersionPrefix)' == '' ">1.0.3</VersionPrefix>
-    <Version Condition=" '$(VersionSuffix)' != '' ">$(VersionPrefix)-$(VersionSuffix)</Version>
-    <Version Condition=" '$(Version)' == '' ">$(VersionPrefix)</Version>
-  </PropertyGroup>
-
-
-  <Target Name="NpmCommands" BeforeTargets="Build">
-    <Exec Command="npm install --save-prod" />
+  <Target Name="NpmCommands" BeforeTargets="Build" Condition="($([MSBuild]::IsOsPlatform('OSX')) Or $([MSBuild]::IsOsPlatform('LINUX')))">
+    <Exec Command="rm -rf node_modules" Condition="Exists('./node_modules')" />
+    <Exec Command="npm install --save-prod" Condition="$(Configuration)=='Release'" />
+    <Exec Command="sh ./pre-pack.sh" Condition="$(Configuration)=='Release'"/>
+    <Exec Command="npm install" Condition="$(Configuration)!='Release'" />
   </Target>
 
+  <Target Name="NpmCommands" BeforeTargets="Build" Condition="($([MSBuild]::IsOsPlatform('WINDOWS'))">
+    <Exec Command="del $(MSBuildProjectDirectory)\\node_modules" Condition="Exists('$(MSBuildProjectDirectory)\\node_modules')" />
+    <Exec Command="npm install --save-prod" Condition="$(Configuration)=='Release'" />
+    <!-- TODO: Need Powershell Script for this on Windows -->
+    <!-- <Exec Command="sh ./pre-pack.sh" Condition="$(Configuration)=='Release'"/> -->
+    <Exec Command="npm install" Condition="$(Configuration)!='Release'" />
+  </Target>
 
   <ItemGroup>
     <None Include="node_modules\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest"/>
