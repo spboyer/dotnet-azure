@@ -20,7 +20,7 @@
     <Exec Command="npm install" Condition="$(Configuration)!='Release'" />
   </Target>
 
-  <Target Name="NpmCommands" BeforeTargets="Build" Condition="($([MSBuild]::IsOsPlatform('WINDOWS'))">
+  <Target Name="NpmCommands" BeforeTargets="Build" Condition="$([MSBuild]::IsOsPlatform('WINDOWS'))">
     <Exec Command="del $(MSBuildProjectDirectory)\\node_modules" Condition="Exists('$(MSBuildProjectDirectory)\\node_modules')" />
     <Exec Command="npm install --save-prod" Condition="$(Configuration)=='Release'" />
     <!-- TODO: Need Powershell Script for this on Windows -->
