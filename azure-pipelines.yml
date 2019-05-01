@@ -10,22 +10,16 @@ variables:
 
 steps:
 # MASTER BRANCH ONLY
-- script: dotnet pack --configuration $(buildConfiguration) --version-suffix "build-$(Build.BuildNumber)"
+- script: dotnet pack --configuration $(buildConfiguration) --version-suffix "build-$(Build.BuildNumber)" -o "$(Build.ArtifactStagingDirectory)"
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
   displayName: 'dotnet pack $(buildConfiguration)'
 
-# PUSH TO INTERNAL ARTIFACT FEED
-- task: PublishBuildArtifacts@1
-  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-  inputs:
-    ArtifactName: 'drop'
-  displayName: 'Publish Artifacts'
-
 # RELEASE BRANCH
-- script: dotnet pack --configuration $(buildConfiguration)
+- script: dotnet pack --configuration $(buildConfiguration) -o "$(Build.ArtifactStagingDirectory)"
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/release'))
   displayName: 'dotnet pack $(buildConfiguration)'
 
+#PUBLISH ARTIFACTS 
 - task: PublishBuildArtifacts@1
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/release'))
   inputs:
