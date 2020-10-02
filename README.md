@@ -1,6 +1,6 @@
 # dotnet-azure
 
-[![Build Status](https://dev.azure.com/shayneboyer/dotnet-azure/_apis/build/status/spboyer.dotnet-azure?branchName=master)](https://dev.azure.com/shayneboyer/dotnet-azure/_build/latest?definitionId=3&branchName=master)
+[![Build Status](https://dev.azure.com/shayneboyer/dotnet-azure/_apis/build/status/spboyer.dotnet-azure?branchName=master)](https://dev.azure.com/shayneboyer/dotnet-azure/_build/latest?definitionId=3&branchName=master&WT.mc_id=dotnetazure-github-shboyer)
 
 .NET Core global tool for creating and updating web applications in Azure.
 
@@ -37,7 +37,7 @@ Run `login` command first to authenticate against your Azure account.
 `dotnet azure login`
 
 ```console
-To sign in, use a web browser to open the page https://microsoft.com/devicelogin and enter the code XXXXXXXXX to authenticate.
+To sign in, use a web browser to open the page https://microsoft.com/devicelogin?WT.mc_id=dotnetazure-github-shboyer and enter the code XXXXXXXXX to authenticate.
 ```
 
 ### deploy
