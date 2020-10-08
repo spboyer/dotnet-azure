@@ -1,6 +1,6 @@
 # dotnet-azure
 
-[![Build Status](https://dev.azure.com/shayneboyer/dotnet-azure/_apis/build/status/spboyer.dotnet-azure?branchName=master)](https://dev.azure.com/shayneboyer/dotnet-azure/_build/latest?definitionId=3&branchName=master&WT.mc_id=dotnetazure-github-shboyer)
+[![Build Status](https://dev.azure.com/shayneboyer/dotnet-azure/_apis/build/status/spboyer.dotnet-azure?branchName=master)](https://dev.azure.com/shayneboyer/dotnet-azure/_build/latest?definitionId=3&branchName=master)
 
 .NET Core global tool for creating and updating web applications in Azure.
 
